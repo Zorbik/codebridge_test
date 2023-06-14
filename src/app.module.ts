@@ -14,7 +14,7 @@ import { AllExceptionsFilter } from './filters/exceptions.filter';
     ConfigModule.forRoot(),
     SequelizeModule.forRoot({
       dialect: 'postgres',
-      // dialectOptions: { ssl: true },
+      // dialectOptions: { ssl: true }, // for connection external link //
       host: process.env.HOST,
       port: Number(process.env.DB_PORT),
       username: process.env.DB_USERNAME,
