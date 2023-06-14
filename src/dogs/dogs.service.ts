@@ -41,8 +41,9 @@ export class DogService {
     return await this.dogModel.create({ ...createDogDto });
   }
 
-  async remove(id: string): Promise<void> {
-    const user = await this.findOne(id);
-    await user.destroy();
+  async remove(id: string): Promise<any> {
+    const dog = await this.findOne(id);
+    await dog.destroy();
+    return { dog, message: 'Dog deleted successfully' };
   }
 }

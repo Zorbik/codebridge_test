@@ -1,73 +1,130 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# CodeBridge Test - REST API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This is a sample REST API project that allows you to create and manage entities with the following fields: "name", "color", "tail_length", and "weight". The API provides functionality for retrieving all dogs or paginated results, as well as sorting.
 
 ## Installation
 
-```bash
-$ npm install
-```
+1. Clone the repository:
 
-## Running the app
+   ```bash
+   git clone https://github.com/your-username/codebridge-test.git
+   ```
 
-```bash
-# development
-$ npm run start
+2. Install the dependencies:
 
-# watch mode
-$ npm run start:dev
+   ```bash
+   cd codebridge-test
+   npm install
+   ```
 
-# production mode
-$ npm run start:prod
-```
+## Configuration
 
-## Test
+The application uses PostgreSQL as the database. Make sure you have a PostgreSQL server running, and configure the database connection settings in the `.env` file located in the root directory of the project.
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+PORT=3000
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=your-username
+DB_PASSWORD=your-password
+DB_NAME=your-dbname
 ```
 
-## Support
+## Running the Application
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+To start the application, run the following command:
 
-## Stay in touch
+```bash
+npm run start
+```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+The application will be accessible at `http://localhost:3000`.
 
-## License
+## API Endpoints
 
-Nest is [MIT licensed](LICENSE).
+- **GET /dog**
+  - Retrieves all dogs.
+  - Query Parameters:
+    - `pageNumber` (optional): The page number for pagination.
+    - `pageSize` (optional): The number of items per page.
+    - `attribute` (optional): The attribute to sort by. (Default: "id")
+    - `order` (optional): The sorting order ("asc" or "desc"). (Default: "asc")
+
+**Example Response:**
+
+```json
+[
+  {
+    "id": "1",
+    "name": "Fido",
+    "color": "Brown",
+    "tail_length": 30,
+    "weight": 50
+  },
+  {
+    "id": "2",
+    "name": "Buddy",
+    "color": "White",
+    "tail_length": 20,
+    "weight": 40
+  },
+  ...
+]
+```
+
+- **GET /dog/:id**
+  - Retrieves a dog by ID.
+
+**Example Response:**
+
+```json
+{
+  "id": "1",
+  "name": "Fido",
+  "color": "Brown",
+  "tail_length": 30,
+  "weight": 50
+}
+```
+
+- **POST /dog**
+  - Creates a new dog.
+  - Request Body:
+
+```json
+{
+  "name": "Max",
+  "color": "Black",
+  "tail_length": 25,
+  "weight": 45
+}
+```
+
+**Example Response:**
+
+```json
+{
+  "id": "3",
+  "name": "Max",
+  "color": "Black",
+  "tail_length": 25,
+  "weight": 45
+}
+```
+
+- **DELETE /dog/:id**
+  - Deletes a dog by ID.
+
+**Example Response:**
+
+```json
+{
+  "message": "Dog deleted successfully"
+}
+```
+
+Please note that you should replace `:id` in the endpoint URLs with the actual ID of the dog you want to retrieve or delete.
+
+## Error Handling
+
+The application uses a global exception filter (`AllExceptionsFilter`) to handle exceptions and provide consistent error responses. If any validation errors occur, they will be automatically handled and returned as a response with the appropriate status code and error messages.

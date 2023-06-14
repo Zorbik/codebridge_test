@@ -43,7 +43,7 @@ export class DogController {
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string): Promise<void> {
+  async remove(@Param('id') id: string): Promise<Dog> {
     return await this.dogService.remove(id);
   }
 }

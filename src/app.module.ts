@@ -14,12 +14,12 @@ import { AllExceptionsFilter } from './filters/exceptions.filter';
     ConfigModule.forRoot(),
     SequelizeModule.forRoot({
       dialect: 'postgres',
-      // dialectOptions: { ssl: true }, // for connection external link //
-      host: process.env.HOST,
+      dialectOptions: { ssl: true }, // for connection external link //
+      host: process.env.DB_HOST,
       port: Number(process.env.DB_PORT),
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
-      database: 'dbname_llgy',
+      database: process.env.DB_NAME,
       models: [Dog],
       autoLoadModels: true,
     }),
